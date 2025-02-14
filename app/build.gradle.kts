@@ -10,7 +10,7 @@ android {
     defaultConfig {
         applicationId = "com.example.foodrecipe"
         minSdk = 27
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -21,12 +21,19 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField("String", "SEARCH_BY_NAME_URL", "\"www.themealdb.com/api/json/v1/1/search.php?s=\"")
+            buildConfigField("String", "RANDOM_URL", "\"www.themealdb.com/api/json/v1/1/random.php\"")
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+
+            buildConfigField("String", "SEARCH_BY_NAME_URL", "\"www.themealdb.com/api/json/v1/1/search.php\"")
+            buildConfigField("String", "RANDOM_URL", "\"www.themealdb.com/api/json/v1/1/random.php\"")
         }
     }
     compileOptions {
@@ -38,6 +45,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -61,6 +69,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.transport.runtime)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -70,4 +79,8 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation("io.ktor:ktor-client-core:$ktor_version")
     implementation("io.ktor:ktor-client-cio:$ktor_version")
+    implementation("io.ktor:ktor-client-content-negotiation:$ktor_version")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
+    implementation("io.insert-koin:koin-bom:4.0.2")
+    implementation(kotlin("reflect"))
 }
