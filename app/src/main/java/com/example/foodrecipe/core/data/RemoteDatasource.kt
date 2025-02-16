@@ -1,5 +1,6 @@
 package com.example.foodrecipe.core.data
 
+import android.util.Log
 import com.example.foodrecipe.BuildConfig
 import com.example.foodrecipe.core.data.dto.FoodRecipeResponseDto
 import com.example.foodrecipe.core.mapper.toFoodRecipe
@@ -19,6 +20,7 @@ class RemoteDatasource(
         return safeCall<FoodRecipeResponseDto> {
             httpClient.get(BuildConfig.RANDOM_URL)
         }.map { response ->
+            Log.d("data ne", "${response.meals.size}")
             response.meals.map { it -> it.toFoodRecipe() }
         }
     }

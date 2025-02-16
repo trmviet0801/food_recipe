@@ -13,6 +13,8 @@ suspend inline fun <reified T> responseToResult(response: HttpResponse): Result<
                 Result.Success<T>(response.body<T>())
             } catch (e: NoTransformationFoundException) {
                 Result.Error(NetworkError.SERIALIZATION)
+            } catch (e: Exception) {
+                Result.Error(NetworkError.UNKNOWN)
             }
         }
         408 -> Result.Error(NetworkError.REQUEST_TIMEOUT)

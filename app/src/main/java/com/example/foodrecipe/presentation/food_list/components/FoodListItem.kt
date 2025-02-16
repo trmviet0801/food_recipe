@@ -25,7 +25,6 @@ import com.example.foodrecipe.ui.theme.Purple40
 @Composable
 fun FoodListItem(
     recipe: FoodRecipe,
-    modifier: Modifier,
     onClick: () -> Unit = {}
 ) {
     Card(
@@ -97,6 +96,6 @@ val previewRecipe = FoodRecipe(
 @Composable
 private fun FoodListItemPreview() {
     FoodRecipeTheme {
-        FoodListItem(previewRecipe, Modifier)
+        FoodListItem(previewRecipe)
     }
 }

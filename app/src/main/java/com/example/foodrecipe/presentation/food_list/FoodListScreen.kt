@@ -1,25 +1,30 @@
 package com.example.foodrecipe.presentation.food_list
 
 import androidx.compose.foundation.gestures.detectTapGestures
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
+import com.example.foodrecipe.presentation.food_list.components.FoodListItem
 import com.example.foodrecipe.presentation.food_list.components.SearchBox
-import com.example.foodrecipe.ui.theme.FoodRecipeTheme
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun FoodListScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: FoodListViewModel
 ) {
+    val state = viewModel.state.collectAsState()
     val localFocusManager = LocalFocusManager.current
-    Box (
+    Column (
         modifier = Modifier
             .fillMaxSize()
             .padding(top = 30.dp)
@@ -32,13 +37,14 @@ fun FoodListScreen(
         SearchBox { it ->
             TODO()
         }
-    }
-}
-
-@PreviewLightDark
-@Composable
-private fun FoodListScreenPreview() {
-    FoodRecipeTheme {
-        FoodListScreen()
+        FlowRow (
+            modifier = Modifier
+                .padding(16.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            state.value.foodRecipes.map { recipe ->
+                FoodListItem(recipe = recipe)
+            }
+        }
     }
 }

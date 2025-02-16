@@ -1,7 +1,14 @@
+val ktor_version: String by project
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.kotlin.serialization)
 }
+
+
+
 
 android {
     namespace = "com.example.foodrecipe"
@@ -23,7 +30,7 @@ android {
     buildTypes {
         debug {
             buildConfigField("String", "SEARCH_BY_NAME_URL", "\"www.themealdb.com/api/json/v1/1/search.php?s=\"")
-            buildConfigField("String", "RANDOM_URL", "\"www.themealdb.com/api/json/v1/1/random.php\"")
+            buildConfigField("String", "RANDOM_URL", "\"https://themealdb.com/api/json/v1/1/random.php\"")
         }
         release {
             isMinifyEnabled = false
@@ -33,7 +40,7 @@ android {
             )
 
             buildConfigField("String", "SEARCH_BY_NAME_URL", "\"www.themealdb.com/api/json/v1/1/search.php\"")
-            buildConfigField("String", "RANDOM_URL", "\"www.themealdb.com/api/json/v1/1/random.php\"")
+            buildConfigField("String", "RANDOM_URL", "\"https://themealdb.com/api/json/v1/1/search.php?f=a\"")
         }
     }
     compileOptions {
@@ -57,7 +64,7 @@ android {
     }
 }
 
-val ktor_version: String by project
+
 
 dependencies {
     implementation("io.coil-kt:coil-compose:2.0.0-rc01")
@@ -81,6 +88,13 @@ dependencies {
     implementation("io.ktor:ktor-client-cio:$ktor_version")
     implementation("io.ktor:ktor-client-content-negotiation:$ktor_version")
     implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
-    implementation("io.insert-koin:koin-bom:4.0.2")
     implementation(kotlin("reflect"))
+
+
+
+    implementation("io.insert-koin:koin-android:4.0.2")
+    runtimeOnly("io.insert-koin:koin-androidx-compose:4.0.2")
+    implementation("io.insert-koin:koin-androidx-navigation:4.0.2")
+
+
 }
