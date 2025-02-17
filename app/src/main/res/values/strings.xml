@@ -2,4 +2,6 @@
     <string name="app_name">FoodRecipe</string>
     <string name="enter_some_foods_or_ingredients">wanna find somethings?</string>
     <string name="search">search</string>
+    <string name="plus">plus icon</string>
+    <string name="right_arrow">right arrow</string>
 </resources>

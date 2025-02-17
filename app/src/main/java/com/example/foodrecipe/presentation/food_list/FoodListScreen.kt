@@ -6,13 +6,18 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
+import com.example.foodrecipe.presentation.food_detail.FoodDetailScreen
 import com.example.foodrecipe.presentation.food_list.components.FoodListItem
 import com.example.foodrecipe.presentation.food_list.components.SearchBox
 
@@ -24,27 +29,37 @@ fun FoodListScreen(
 ) {
     val state = viewModel.state.collectAsState()
     val localFocusManager = LocalFocusManager.current
-    Column (
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(top = 30.dp)
-            .pointerInput(Unit) {
-                detectTapGestures(onTap = {
-                    localFocusManager.clearFocus()
-                })
-            }
-    ) {
-        SearchBox { it ->
-            TODO()
-        }
-        FlowRow (
+    if (state.value.selectedRecipe == null) {
+        Column(
             modifier = Modifier
-                .padding(16.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
+                .fillMaxSize()
+                .padding(top = 30.dp)
+                .pointerInput(Unit) {
+                    detectTapGestures(onTap = {
+                        localFocusManager.clearFocus()
+                    })
+                }
         ) {
-            state.value.foodRecipes.map { recipe ->
-                FoodListItem(recipe = recipe)
+            SearchBox { it ->
+                TODO()
+            }
+            FlowRow(
+                modifier = Modifier
+                    .padding(16.dp)
+                    .fillMaxWidth()
+                    .verticalScroll(rememberScrollState()),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                if (state.value.isLoading)
+                    CircularProgressIndicator()
+                state.value.foodRecipes.map { recipe ->
+                    FoodListItem(recipe = recipe, onClick = {
+                        viewModel.onAction(FoodListAction.OnRecipeClick(recipe))
+                    })
+                }
             }
         }
+    } else {
+        FoodDetailScreen(state.value.selectedRecipe!!)
     }
 }

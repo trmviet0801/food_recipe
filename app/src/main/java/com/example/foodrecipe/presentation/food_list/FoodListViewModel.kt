@@ -43,11 +43,22 @@ class FoodListViewModel(
                     ) }
                 }
                 .onSuccess { data ->
+                    Log.d("FoodListViewModel", "data: ${data}")
                 _state.update { it.copy(
                     foodRecipes = data,
                     isLoading = false
                 ) }
 
+            }
+        }
+    }
+
+    fun onAction(action: FoodListAction) {
+        when (action) {
+            is FoodListAction.OnRecipeClick -> {
+                _state.update { it.copy(
+                    selectedRecipe = action.recipe
+                ) }
             }
         }
     }

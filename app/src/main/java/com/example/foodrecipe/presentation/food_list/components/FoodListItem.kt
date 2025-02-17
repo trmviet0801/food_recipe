@@ -30,7 +30,7 @@ fun FoodListItem(
     Card(
         modifier = Modifier
             .padding(16.dp)
-            .width(160.dp)
+            .width(150.dp)
             .shadow(
                 elevation = 16.dp,
                 ambientColor = Color.Green,

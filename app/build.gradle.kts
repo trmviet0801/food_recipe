@@ -29,8 +29,8 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField("String", "SEARCH_BY_NAME_URL", "\"www.themealdb.com/api/json/v1/1/search.php?s=\"")
-            buildConfigField("String", "RANDOM_URL", "\"https://themealdb.com/api/json/v1/1/random.php\"")
+            buildConfigField("String", "RANDOM_URL", "\"https://themealdb.com/api/json/v1/1/search.php?s=a\"")
+            buildConfigField("String", "SEARCH_BY_NAME_URL", "\"https://themealdb.com/api/json/v1/1/search.php?s=a\"")
         }
         release {
             isMinifyEnabled = false
@@ -38,9 +38,8 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-
-            buildConfigField("String", "SEARCH_BY_NAME_URL", "\"www.themealdb.com/api/json/v1/1/search.php\"")
-            buildConfigField("String", "RANDOM_URL", "\"https://themealdb.com/api/json/v1/1/search.php?f=a\"")
+            buildConfigField("String", "RANDOM_URL", "\"https://themealdb.com/api/json/v1/1/search.php?s=a\"")
+            buildConfigField("String", "SEARCH_BY_NAME_URL", "\"https://themealdb.com/api/json/v1/1/search.php?s=a\"")
         }
     }
     compileOptions {
