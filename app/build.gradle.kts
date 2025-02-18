@@ -30,7 +30,7 @@ android {
     buildTypes {
         debug {
             buildConfigField("String", "RANDOM_URL", "\"https://themealdb.com/api/json/v1/1/search.php?s=a\"")
-            buildConfigField("String", "SEARCH_BY_NAME_URL", "\"https://themealdb.com/api/json/v1/1/search.php?s=a\"")
+            buildConfigField("String", "SEARCH_BY_NAME_URL", "\"https://themealdb.com/api/json/v1/1/search.php?s=\"")
         }
         release {
             isMinifyEnabled = false
@@ -39,7 +39,7 @@ android {
                 "proguard-rules.pro"
             )
             buildConfigField("String", "RANDOM_URL", "\"https://themealdb.com/api/json/v1/1/search.php?s=a\"")
-            buildConfigField("String", "SEARCH_BY_NAME_URL", "\"https://themealdb.com/api/json/v1/1/search.php?s=a\"")
+            buildConfigField("String", "SEARCH_BY_NAME_URL", "\"https://themealdb.com/api/json/v1/1/search.php?s=\"")
         }
     }
     compileOptions {
@@ -76,9 +76,10 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.transport.runtime)
+    implementation(libs.androidx.ui.test.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+   // androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
@@ -95,5 +96,9 @@ dependencies {
     runtimeOnly("io.insert-koin:koin-androidx-compose:4.0.2")
     implementation("io.insert-koin:koin-androidx-navigation:4.0.2")
 
+    val nav_version = "2.8.7"
 
+    implementation("androidx.navigation:navigation-compose:$nav_version")
+    implementation ("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.1'0")
+    implementation ("com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:0.30")
 }

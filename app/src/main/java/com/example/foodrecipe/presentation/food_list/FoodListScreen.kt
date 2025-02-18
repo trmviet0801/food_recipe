@@ -29,6 +29,7 @@ fun FoodListScreen(
 ) {
     val state = viewModel.state.collectAsState()
     val localFocusManager = LocalFocusManager.current
+
     if (state.value.selectedRecipe == null) {
         Column(
             modifier = Modifier
@@ -40,8 +41,8 @@ fun FoodListScreen(
                     })
                 }
         ) {
-            SearchBox { it ->
-                TODO()
+            SearchBox(state.value.searchKeyword) { keyword ->
+                viewModel.onAction(FoodListAction.OnSearching(keyword))
             }
             FlowRow(
                 modifier = Modifier
@@ -52,7 +53,7 @@ fun FoodListScreen(
             ) {
                 if (state.value.isLoading)
                     CircularProgressIndicator()
-                state.value.foodRecipes.map { recipe ->
+                state.value.foodRecipes.filter { it.strMealThumb.contains("http") }.map { recipe ->
                     FoodListItem(recipe = recipe, onClick = {
                         viewModel.onAction(FoodListAction.OnRecipeClick(recipe))
                     })
@@ -60,6 +61,8 @@ fun FoodListScreen(
             }
         }
     } else {
-        FoodDetailScreen(state.value.selectedRecipe!!)
+        FoodDetailScreen(state.value.selectedRecipe!!, onAction = {
+            viewModel.onAction(FoodListAction.OnReturnMainScreen)
+        })
     }
 }

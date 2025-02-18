@@ -9,7 +9,7 @@ data class FoodRecipeDto(
     val strCategory: String,
     val strArea: String,
     val strInstructions: String,
-    val strMealThumb: String,
+    val strMealThumb: String? = "https://ashoka.foundation/Content/no-img-banner.jpg",
     val strYoutube: String,
     val strIngredient1: String?,
     val strIngredient2: String?,

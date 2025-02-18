@@ -16,7 +16,7 @@ fun FoodRecipeDto.toFoodRecipe(): FoodRecipe {
         strCategory = strCategory,
         strArea = strArea,
         strInstructions = strInstructions,
-        strMealThumb = strMealThumb,
+        strMealThumb = strMealThumb.toString(),
         strYoutube = strYoutube,
         strIngredients = ingredients,
         strMeasures = measures

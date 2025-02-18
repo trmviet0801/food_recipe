@@ -24,7 +24,11 @@ class RemoteDatasource(
     }
 
     override suspend fun getRecipesByIngredient(ingredient: String): Result<List<FoodRecipe>, NetworkError> {
-        TODO("Not yet implemented")
+        return safeCall<FoodRecipeResponseDto> {
+            httpClient.get(BuildConfig.SEARCH_BY_NAME_URL + ingredient)
+        }.map { response ->
+            response.meals.map { it.toFoodRecipe() }
+        }
     }
 
 }

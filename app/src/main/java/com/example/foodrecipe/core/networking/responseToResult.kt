@@ -1,5 +1,6 @@
 package com.example.foodrecipe.core.networking
 
+import android.util.Log
 import com.example.foodrecipe.domain.util.NetworkError
 import com.example.foodrecipe.domain.util.Result
 import io.ktor.client.call.NoTransformationFoundException
@@ -14,6 +15,7 @@ suspend inline fun <reified T> responseToResult(response: HttpResponse): Result<
             } catch (e: NoTransformationFoundException) {
                 Result.Error(NetworkError.SERIALIZATION)
             } catch (e: Exception) {
+                Log.e("Network Error", "${e.message}")
                 Result.Error(NetworkError.UNKNOWN)
             }
         }
